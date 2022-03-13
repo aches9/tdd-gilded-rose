@@ -39,6 +39,20 @@ class GildedRoseTest {
         );
     }
 
+    private static Stream<TestData> backstagePassTestData() {
+        return Stream.of(
+                new TestData("Backstage Pass",15,20, 14,21),
+                new TestData("Backstage Pass",10,45, 9, 47),
+                new TestData("Backstage Pass",9, 45, 8, 47),
+                new TestData("Backstage Pass",10,49, 9, 50),
+                new TestData("Backstage Pass",10,50, 9, 50),
+                new TestData("Backstage Pass",5, 49, 4, 50),
+                new TestData("Backstage Pass",5, 45, 4, 48),
+                new TestData("Backstage Pass",1, 20, 0, 23),
+                new TestData("Backstage Pass",0, 20, -1,0)
+        );
+    }
+
     @ParameterizedTest
     @MethodSource("regularProductTestData")
     void should_update_sellIn_and_Quality_when_update_given_regularProduct(TestData testData) {
@@ -62,6 +76,16 @@ class GildedRoseTest {
     @ParameterizedTest
     @MethodSource("sulfurasTestData")
     void should_update_sellIn_and_Quality_when_update_given_sulfuras(TestData testData) {
+        Product originProduct = new Product(testData.name, testData.sellIn, testData.quality);
+        Product updatedProduct = new Product(testData.name, testData.updatedSellIn, testData.updatedQuality);
+        GildedRose gildedRose = new GildedRose();
+        Product updateResult = gildedRose.updateProduct(originProduct);
+        Assertions.assertEquals(updatedProduct.toString(), updateResult.toString());
+    }
+
+    @ParameterizedTest
+    @MethodSource("backstagePassTestData")
+    void should_update_sellIn_and_Quality_when_update_given_backstagePass(TestData testData) {
         Product originProduct = new Product(testData.name, testData.sellIn, testData.quality);
         Product updatedProduct = new Product(testData.name, testData.updatedSellIn, testData.updatedQuality);
         GildedRose gildedRose = new GildedRose();
