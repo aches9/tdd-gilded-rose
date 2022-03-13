@@ -32,7 +32,8 @@
     - Given 普通商品，SellIn<1 且 Quality>0 When 天数+1 Then SellIn-1,Quality-2
     - Given 普通商品，SellIn<1 且 Quality=0 When 天数+1 Then SellIn-1,Quality不变
 2. 陈年干酪(Aged Brie)
-    - Given Aged Brie，Quality<50 When 天数+1 Then Quality+1
+    - Given Aged Brie，Quality<50且sellIn>0 When 天数+1 Then Quality+1
+    - Given Aged Brie，Quality<50且sellIn<1 When 天数+1 Then Quality+2
     - Given Aged Brie，Quality=50 When 天数+1 Then Quality不变
 3. 萨弗拉斯(Sulfuras)
     - Given Sulfuras When 天数+1 Then Quality不变

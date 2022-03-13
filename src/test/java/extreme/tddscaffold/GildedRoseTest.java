@@ -1,17 +1,11 @@
 package extreme.tddscaffold;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class GildedRoseTest {
     private static Stream<TestData> regularProductTestData() {
@@ -25,9 +19,29 @@ class GildedRoseTest {
         );
     }
 
+    private static Stream<TestData> AgedBrieProductTestData() {
+        return Stream.of(
+                new TestData("Aged Brie", 2, 0, 1, 1),
+                new TestData("Aged Brie",2, 49, 1, 50),
+                new TestData("Aged Brie",2, 50, 1, 50),
+                new TestData("Aged Brie",0, 20, -1, 22),
+                new TestData("Aged Brie",-1, 20, -2, 22)
+        );
+    }
+
     @ParameterizedTest
     @MethodSource("regularProductTestData")
-    void should_sellIn_minus_1_quality_minus_1_when_update_given_normalProduct_sellInGT0_qualityGT0(TestData testData) {
+    void should_update_sellIn_and_Quality_when_update_given_regularProduct(TestData testData) {
+        Product originProduct = new Product(testData.name, testData.sellIn, testData.quality);
+        Product updatedProduct = new Product(testData.name, testData.updatedSellIn, testData.updatedQuality);
+        GildedRose gildedRose = new GildedRose();
+        Product updateResult = gildedRose.updateProduct(originProduct);
+        Assertions.assertEquals(updatedProduct.toString(), updateResult.toString());
+    }
+
+    @ParameterizedTest
+    @MethodSource("AgedBrieProductTestData")
+    void should_update_sellIn_and_Quality_when_update_given_AgedBrie(TestData testData) {
         Product originProduct = new Product(testData.name, testData.sellIn, testData.quality);
         Product updatedProduct = new Product(testData.name, testData.updatedSellIn, testData.updatedQuality);
         GildedRose gildedRose = new GildedRose();
