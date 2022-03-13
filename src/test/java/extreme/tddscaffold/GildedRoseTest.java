@@ -19,13 +19,23 @@ class GildedRoseTest {
         );
     }
 
-    private static Stream<TestData> AgedBrieProductTestData() {
+    private static Stream<TestData> AgedBrieTestData() {
         return Stream.of(
                 new TestData("Aged Brie", 2, 0, 1, 1),
                 new TestData("Aged Brie",2, 49, 1, 50),
                 new TestData("Aged Brie",2, 50, 1, 50),
                 new TestData("Aged Brie",0, 20, -1, 22),
                 new TestData("Aged Brie",-1, 20, -2, 22)
+        );
+    }
+
+    private static Stream<TestData> sulfurasTestData() {
+        return Stream.of(
+                new TestData("Sulfuras", 0, 45, 0, 45),
+                new TestData("Sulfuras",-1, 45, -1, 45),
+                new TestData("Sulfuras",-1, 50, -1, 50),
+                new TestData("Sulfuras",-1, 1, -1, 1),
+                new TestData("Sulfuras",-2, 1, -2, 1)
         );
     }
 
@@ -40,8 +50,18 @@ class GildedRoseTest {
     }
 
     @ParameterizedTest
-    @MethodSource("AgedBrieProductTestData")
-    void should_update_sellIn_and_Quality_when_update_given_AgedBrie(TestData testData) {
+    @MethodSource("AgedBrieTestData")
+    void should_update_sellIn_and_Quality_when_update_given_agedBrie(TestData testData) {
+        Product originProduct = new Product(testData.name, testData.sellIn, testData.quality);
+        Product updatedProduct = new Product(testData.name, testData.updatedSellIn, testData.updatedQuality);
+        GildedRose gildedRose = new GildedRose();
+        Product updateResult = gildedRose.updateProduct(originProduct);
+        Assertions.assertEquals(updatedProduct.toString(), updateResult.toString());
+    }
+
+    @ParameterizedTest
+    @MethodSource("sulfurasTestData")
+    void should_update_sellIn_and_Quality_when_update_given_sulfuras(TestData testData) {
         Product originProduct = new Product(testData.name, testData.sellIn, testData.quality);
         Product updatedProduct = new Product(testData.name, testData.updatedSellIn, testData.updatedQuality);
         GildedRose gildedRose = new GildedRose();
