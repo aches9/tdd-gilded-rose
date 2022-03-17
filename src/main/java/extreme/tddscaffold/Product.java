@@ -14,6 +14,15 @@ public abstract class Product {
         this.quality = quality;
     }
 
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", sellIn=" + sellIn +
+                ", quality=" + quality +
+                '}';
+    }
+
     void increaseQuality(){
         if (quality < MAX_QUALITY) {
             quality += ONE_UPDATE;

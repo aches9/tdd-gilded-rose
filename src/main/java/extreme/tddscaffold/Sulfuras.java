@@ -7,6 +7,6 @@ public class Sulfuras extends Product implements GildedRose{
 
     @Override
     public void updateProductQuality() {
-        updateSellIn();
+
     }
 }
